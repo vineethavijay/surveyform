@@ -1,0 +1,23 @@
+name: Deploy to Azure Web App
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to Azure Web App
+      run: |
+        az webapp deployment source config --name <tech institute> --resource-group <r1> --repo-url https://github.com/<vineethavijay>/<surveyform>.git --branch main --manual-integration
